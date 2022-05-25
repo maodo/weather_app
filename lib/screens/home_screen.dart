@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
           // ),
           Container(
             width: double.infinity,
-            color: Colors.black.withOpacity(0.8),
+            color: Colors.black.withOpacity(0.5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                   child: Text(
                     'Get to know your weather maps and radar precipitation forecast',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey.shade400),
+                    style: TextStyle(color: Colors.grey.shade400,fontSize:16.0),
                   ),
                 ),
                 Container(
