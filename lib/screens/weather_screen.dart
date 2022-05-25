@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weather_app/utils/constants.dart';
 
@@ -11,6 +12,7 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> {
   String dropdownvalue = 'Abuja Nigeria';
+  bool status = false;
 
   // List of items in our dropdown menu
   var items = [
@@ -26,18 +28,18 @@ class _WeatherScreenState extends State<WeatherScreen> {
       body: Container(
           child: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/blue_background.webp'),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.8),
-                  BlendMode.dstATop,
-                ),
-              ),
-            ),
-          ),
+          // Container(
+          //   decoration: BoxDecoration(
+          //     image: DecorationImage(
+          //       image: AssetImage('images/blue_background.webp'),
+          //       fit: BoxFit.cover,
+          //       colorFilter: ColorFilter.mode(
+          //         Colors.white.withOpacity(0.8),
+          //         BlendMode.dstATop,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Container(
             width: double.infinity,
             color: Colors.black.withOpacity(0.8),
@@ -69,7 +71,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             width: 6.0,
                           ),
                           DropdownButton(
-                            underline:SizedBox(),
+                            underline: SizedBox(),
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                             ),
@@ -91,16 +93,29 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           )
                         ],
                       ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Icon(FontAwesomeIcons.barsStaggered,
-                            color: Colors.white),
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(15),
-                          primary: Color(0xFF232434),
+                      Padding(
+                        padding: const EdgeInsets.only(right : 10.0),
+                        child: FlutterSwitch(
+                          height: 38.0,
+                          activeColor: Color(0xFF232434),
+                          inactiveColor: Colors.white,
+                          activeIcon: Icon(
+                            Icons.nightlight_round,
+                            color: Colors.blueAccent,
+                          ),
+                          inactiveIcon: Icon(
+                            Icons.wb_sunny,
+                            color: Colors.yellow,
+                          ),
+                          value: status,
+                          onToggle: (val) {
+                            setState(() {
+                              status = val;
+                            });
+                          },
                         ),
-                      )
+                      ),
+                      
                     ],
                   ),
                 ),
