@@ -9,16 +9,19 @@ class HomeScreen extends StatelessWidget {
       body: Container(
           child: Stack(
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.only(top:300.0),
-          //   child: Image(
-          //     image: AssetImage('images/home_image.webp'),
-
-          //   ),
-          // ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/blue_background.webp'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.white.withOpacity(0.8), BlendMode.dstATop),
+              ),
+            ),
+          ),
           Container(
             width: double.infinity,
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withOpacity(0.8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -33,22 +36,34 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 28.0,
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
                     ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+                  margin: EdgeInsets.only(top: 30.0, left: 33.0, right: 33.0),
                   child: Text(
                     'Get to know your weather maps and radar precipitation forecast',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey.shade400,fontSize:16.0),
+                    style: TextStyle(
+                      color: Colors.grey.shade400,
+                      fontSize: 16.0,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 50.0, left: 40.0, right: 40.0),
                   child: ElevatedButton(
                     onPressed: () => {},
-                    child: Text('Get Started'),
+                    child: Text(
+                      'Get Started',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontFamily: 'Montserrat',
+                      ),
+                    ),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
