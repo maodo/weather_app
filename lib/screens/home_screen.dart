@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/utils/constants.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -33,11 +34,7 @@ class HomeScreen extends StatelessWidget {
                   child: Text(
                     'Discover the weather in your city',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Montserrat',
-                    ),
+                    style: kHomeTitleTextStyle,
                   ),
                 ),
                 Container(
@@ -45,12 +42,7 @@ class HomeScreen extends StatelessWidget {
                   child: Text(
                     'Get to know your weather maps and radar precipitation forecast',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey.shade400,
-                      fontSize: 16.0,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: kHomeDescriptionTextStyle,
                   ),
                 ),
                 Container(
@@ -59,10 +51,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () => {},
                     child: Text(
                       'Get Started',
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'Montserrat',
-                      ),
+                      style: kHomeButtonTextStyle,
                     ),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
