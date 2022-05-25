@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/utils/constants.dart';
 
+import 'weather_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -16,7 +18,9 @@ class HomeScreen extends StatelessWidget {
                 image: AssetImage('images/blue_background.webp'),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                    Colors.white.withOpacity(0.8), BlendMode.dstATop),
+                  Colors.white.withOpacity(0.8),
+                  BlendMode.dstATop,
+                ),
               ),
             ),
           ),
@@ -38,17 +42,22 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 30.0, left: 33.0, right: 33.0),
+                  margin: EdgeInsets.only(top: 30.0),
                   child: Text(
-                    'Get to know your weather maps and radar precipitation forecast',
+                    'Get to know your weather maps and\nradar precipitation forecast',
                     textAlign: TextAlign.center,
                     style: kHomeDescriptionTextStyle,
+                    
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 50.0, left: 40.0, right: 40.0),
                   child: ElevatedButton(
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return WeatherScreen();
+                      }))
+                    },
                     child: Text(
                       'Get Started',
                       style: kHomeButtonTextStyle,
