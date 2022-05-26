@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/services/weather.dart';
 import 'package:weather_app/utils/constants.dart';
 
 import 'weather_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  var weatherData;
+  getWeatherData() async {
+    weatherData = await WeatherModel().getCityWeather('Dakar Senegal');
+  }
+  @override
+  void initState() {
+    super.initState();
+    getWeatherData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => {
                       Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return WeatherScreen();
+                        return WeatherScreen(weatherData: weatherData,);
                       }))
                     },
                     child: Text(

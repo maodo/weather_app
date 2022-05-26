@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:weather_app/services/weather.dart';
 import 'package:weather_app/utils/constants.dart';
 
 class WeatherScreen extends StatefulWidget {
-  const WeatherScreen({Key? key}) : super(key: key);
+  WeatherScreen({this.weatherData});
+  final weatherData;
 
   @override
   _WeatherScreenState createState() => _WeatherScreenState();
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  String dropdownvalue = 'Abuja Nigeria';
+  String dropdownvalue = 'Dakar Senegal';
   bool status = false;
-
+  int temperature = 0;
+  int humidity = 0;
+  double speed = 0;
+  var description;
+  WeatherModel weatherModel = WeatherModel();
   // List of items in our dropdown menu
   var items = [
     'Dakar Senegal',
@@ -22,6 +28,23 @@ class _WeatherScreenState extends State<WeatherScreen> {
     'New York USA',
   ];
 
+  void updateUI(dynamic weatherData) {
+    setState(() {
+      if (weatherData == null) {
+        return;
+      }
+      double temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
+      humidity = weatherData['main']['humidity'];
+      speed = weatherData['wind']['speed'];
+      description = weatherData['weather'][0]['description'];
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    updateUI(widget.weatherData);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +75,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         child: Icon(FontAwesomeIcons.barsStaggered,
                             color: Colors.white),
                         style: ElevatedButton.styleFrom(
@@ -75,9 +100,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                             ),
-                            onChanged: (String? newValue) {
+                            onChanged: (String? newValue) async {
+                              print(newValue);
+                              var weatherData =
+                                  await weatherModel.getCityWeather(newValue!);
                               setState(() {
-                                dropdownvalue = newValue!;
+                                dropdownvalue = newValue;
+                                updateUI(weatherData);
                               });
                             },
                             // Initial Value
@@ -94,7 +123,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right : 10.0),
+                        padding: const EdgeInsets.only(right: 10.0),
                         child: FlutterSwitch(
                           height: 38.0,
                           activeColor: Color(0xFF232434),
@@ -115,7 +144,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           },
                         ),
                       ),
-                      
                     ],
                   ),
                 ),
@@ -136,7 +164,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 ),
                 Center(
                   child: Text(
-                    'It\'s Cloudy',
+                    '$description',
                     textAlign: TextAlign.center,
                     style: kHomeTitleTextStyle,
                   ),
@@ -147,7 +175,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 45.0),
                       child: Text(
-                        '29',
+                        '$temperature',
                         textAlign: TextAlign.center,
                         style: kTemperatureTextStyle,
                       ),
@@ -189,15 +217,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      '23 km/h',
+                      '$speed km/h',
                       style: kParamTitleTextStyle,
                     ),
                     Text(
-                      '30%',
+                      '$humidity%',
                       style: kParamTitleTextStyle,
                     ),
                     Text(
-                      '23 km/h',
+                      '$speed km/h',
                       style: kParamTitleTextStyle,
                     ),
                   ],
